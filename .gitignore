@@ -1,0 +1,6 @@
+Properties/
+bin/
+obj/
+project system student.csproj
+project system student.sln
+App.config
