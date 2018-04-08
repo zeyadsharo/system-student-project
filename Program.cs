@@ -10,6 +10,7 @@ namespace project_system_student
     {
         static void Main(string[] args)
         {
+            Console.ReadKey();
         }
     }
 }
