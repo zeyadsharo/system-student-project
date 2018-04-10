@@ -705,8 +705,8 @@ year + "\n" +
             student s1 = new student();
             Initial I1 = new Initial();
             I1.displaymenu();
-            InitialTeacher I1T = new InitialTeacher();
-            I1T.displaymenu();
+            //InitialTeacher I1T = new InitialTeacher();
+            //I1T.displaymenu();
             Console.ReadKey();
         }
     }
