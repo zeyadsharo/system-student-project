@@ -8,13 +8,15 @@ namespace project_student1
 {
     public abstract class Person 
     {
-        public abstract bool Age(int a);
+        public abstract bool Age( ref int a);
        // public virtual string Stage();
     }
     class student
     {
+       public double[] arr;
+        public string subject;
         public int stnumber = 0;
-        public int stage;
+        public int studAge;
         public string stname;
         public string sex;
         public float quizz1;
@@ -26,9 +28,9 @@ namespace project_student1
         static public int itemcount = -1;
         public student()
         {
-
+            subject = null;
             stnumber = 0;
-            stage = 0;
+            studAge = 0;
             stname = "no name";
             sex = null;
             quizz1 = 0;
@@ -38,10 +40,11 @@ namespace project_student1
             final = 0;
             total = 0;
         }
-        public student(int stnumber, int stage, string stname, string sex, float quizz1, float quizz2, float assigment, float midterm, float final, float total)
+        public student(int stnumber, int studAge, string stname, string sex, float quizz1, float quizz2, float assigment, float midterm, float final, float total)
         {
+            //this.subject = subject;
             this.stnumber = stnumber;
-            this.stage = stage;
+            this.studAge = studAge;
             this.stname = stname;
             this.sex = sex;
             this.quizz1 = quizz1;
@@ -56,16 +59,16 @@ namespace project_student1
     {
         student[] st = new student[30];
         public int itemcount = 0;
-        public override bool Age(int a)
+        public override bool Age( ref int a)
         {
-            if (a < 0)
+            if (a<0&&a>-30)
             {
                 a = a * -1;
                 return true;
             }
             else
             {
-                if (a > 30)
+                if (a > 30||a <-30)
                 {
                     Console.Write("You have enter a wrong age!!\n ReEnter student's Age:");
                     return false;
@@ -134,14 +137,12 @@ namespace project_student1
             } while (confirm == "y" || confirm == "Y");
         }//end the desplay menu
         public void add(ref int itemcount)
-        {
-
-            Console.WriteLine(itemcount);
+        {  
             Console.Write("Enter student's ID:");
             int stnumber = int.Parse(Console.ReadLine());
             Console.Write("Enter student's Age:");
-          Ask:  int stage = int.Parse(Console.ReadLine());
-            if (!Age(stage))
+            Ask:  int stage = int.Parse(Console.ReadLine());
+            if (!Age(ref stage))
             {
                 goto Ask;
             }       
@@ -150,7 +151,8 @@ namespace project_student1
 
             Console.Write("Enter student's Sex(F or M):");
             string sex = Console.ReadLine().ToString();
-
+            //Console.Write("Enter subject:");
+            //string subject = Console.ReadLine();
             Console.Write("Enter student's quizz1 score:");
             float quizz1 = float.Parse(Console.ReadLine());
 
@@ -167,7 +169,7 @@ namespace project_student1
 
             float total = quizz1 + quizz2 + assigment + midterm + final;
             st[itemcount] = new student(stnumber, stage, stname, sex, quizz1, quizz2, assigment, midterm, final, total);
-            itemcount++;
+            itemcount++;         
         }//end the added information 
         public int search(student[] st, int id, int itemcount)
         {
@@ -182,7 +184,7 @@ namespace project_student1
         static void clean(student[] st, int index)
         {
             st[index].stnumber = 0;
-            st[index].stage = 0;
+            st[index].studAge = 0;
             st[index].stname = null;
             st[index].sex = null;
             st[index].quizz1 = 0;
@@ -228,14 +230,14 @@ namespace project_student1
 
             int i = 0;
 
-            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}{6,-5}{7,-5}{8}(column index)", "0", "1", "2", "3", "4", "5", "6", "7", "8");
-            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}{6,-5}{7,-5}{8,-5}", "ID", "NAME", "SEX", "Q1", "Q2", "As", "Mi", "Fi", "TOTAL");
+            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}{6,-5}{7,-5}{8,-5}{9}(column index)", "0", "1", "2", "3", "4", "5", "6", "7", "8","9");
+            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}{6,-5}{7,-5}{8,-5}{9,-5}", "ID", "NAME","Age","SEX", "Q1", "Q2", "As", "Mi", "Fi", "TOTAL");
             Console.WriteLine("=====================================================");
             while (i < itemcount)
             {
                 if (st[i].stnumber != -1)
                 {
-                    Console.Write("{0,-5}{1,-20}{2,-5}", st[i].stnumber, st[i].stname, st[i].sex);
+                    Console.Write("{0,-5}{1,-20}{2,-5}{3,-5}", st[i].stnumber, st[i].stname, st[i].studAge,st[i].sex);
                     Console.Write("{0,-5}{1,-5}{2,-5}", st[i].quizz1, st[i].quizz2, st[i].assigment);
                     Console.Write("{0,-5}{1,-5}{2,-5}", st[i].midterm, st[i].final, st[i].total);
                     Console.Write("\n");
@@ -293,10 +295,10 @@ namespace project_student1
                 else if (column_index == 8)
                 {
                     Console.Write("Enter student's Age:");
-                    st[index].stage = int.Parse(Console.ReadLine());
+                    st[index].studAge = int.Parse(Console.ReadLine());
                 }
                 else Console.WriteLine("Invalid column index");
-                st[index].total = st[index].quizz1 + st[index].quizz2 + st[index].assigment + st[index].midterm + st[index].final + st[index].stage;
+                st[index].total = st[index].quizz1 + st[index].quizz2 + st[index].assigment + st[index].midterm + st[index].final + st[index].studAge;
             }
             else Console.WriteLine("The record deosn't exits.Check the ID and try again.");
         }
@@ -693,8 +695,7 @@ namespace project_student1
             Console.Write("Enter The school first year was established : ");
             year = int.Parse(Console.ReadLine());
             SchoolInformation.PrintSchoolInformation();
-        }
-
+        }      
         public SchoolInformation(string school, string motto, string colors, string master, int year)
         {
             SchoolInformation.school = school;
@@ -722,8 +723,8 @@ year + "\n" +
     {
         static void Main(string[] args)
         {
-            SchoolInformation school = new SchoolInformation();
-            SchoolInformation.PrintSchoolInformation();
+            //SchoolInformation school = new SchoolInformation();
+            //SchoolInformation.PrintSchoolInformation();
             student s1 = new student();
             Initial I1 = new Initial();
             I1.displaymenu();
