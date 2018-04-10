@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace project_student1
 {
+    public abstract class Person 
+    {
+        public abstract bool Age(int a);
+       // public virtual string Stage();
+    }
     class student
     {
         public int stnumber = 0;
@@ -47,10 +52,28 @@ namespace project_student1
             this.total = total;
         }//end the prametrized constractor   
     }//end the class student 
-    class Initial
+    class Initial:Person
     {
         student[] st = new student[30];
         public int itemcount = 0;
+        public override bool Age(int a)
+        {
+            if (a < 0)
+            {
+                a = a * -1;
+                return true;
+            }
+            else
+            {
+                if (a > 30)
+                {
+                    Console.Write("You have enter a wrong age!!\n ReEnter student's Age:");
+                    return false;
+                }
+            }
+            return true;
+          
+        }
         public void displaymenu()
         {
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
@@ -116,13 +139,12 @@ namespace project_student1
             Console.WriteLine(itemcount);
             Console.Write("Enter student's ID:");
             int stnumber = int.Parse(Console.ReadLine());
-            Console.Write("Enter student's St age:");
-            int stage = int.Parse(Console.ReadLine());
-            while (stage < 0)
+            Console.Write("Enter student's Age:");
+          Ask:  int stage = int.Parse(Console.ReadLine());
+            if (!Age(stage))
             {
-                Console.Write("You have enter a wrong age!!\n ReEnter student's Age:");
-                stage = int.Parse(Console.ReadLine());
-            }
+                goto Ask;
+            }       
             Console.Write("Enter student's Name:");
             string stname = Console.ReadLine().ToString();
 
