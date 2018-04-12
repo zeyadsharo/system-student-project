@@ -13,7 +13,6 @@ namespace project_student1
     }
     class student
     {
-       public double[] arr;
         public string subject;
         public int stnumber = 0;
         public int studAge;
@@ -136,6 +135,18 @@ namespace project_student1
                 confirm = Console.ReadLine().ToString();
             } while (confirm == "y" || confirm == "Y");
         }//end the desplay menu
+        public bool IsSucceed // to now if the student is Succeed or not 
+        {
+            get
+            {
+                int id = Convert.ToInt16(Console.ReadLine());
+                int i = search(st, id, itemcount);
+                if (st[i].total >= 50)
+                    return true;
+                else
+                    return false;
+            }
+        }
         public void add(ref int itemcount)
         {  
             Console.Write("Enter student's ID:");
@@ -723,13 +734,17 @@ year + "\n" +
     {
         static void Main(string[] args)
         {
+           
             //SchoolInformation school = new SchoolInformation();
             //SchoolInformation.PrintSchoolInformation();
             student s1 = new student();
             Initial I1 = new Initial();
+        
             I1.displaymenu();
+            Console.WriteLine(I1.IsSucceed);
             //InitialTeacher I1T = new InitialTeacher();
             //I1T.displaymenu();
+            
             Console.ReadKey();
         }
     }
