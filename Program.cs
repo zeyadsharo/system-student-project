@@ -9,7 +9,6 @@ namespace project_student1
     public abstract class Person 
     {
         public abstract bool Age( ref int a);
-       // public virtual string Stage();
     }
     class student
     {
@@ -88,13 +87,15 @@ namespace project_student1
             Console.WriteLine(" 7.Show student who get the min total score");
             Console.WriteLine(" 8.Find a student by ID");
             Console.WriteLine(" 9.Sort students by TOTAL");
+            Console.WriteLine(" 10.if students IsSucceed or not");
+
             //create an array to store only 30 students'records for testing.
             int choice;
             string confirm;
 
             do
             {
-                Console.Write("Enter your choice(1-8):");
+                Console.Write("Enter your choice(1-10):");
 
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
@@ -127,6 +128,10 @@ namespace project_student1
                     case 9:
                         bubblesort(st, itemcount);
                         break;
+                    case 10:
+                        string m = (IsSucceed) ? "The Student is Succeed" : "failing";
+                        Console.WriteLine(m);
+                        break;
 
                     default: Console.WriteLine("invalid"); break;
                 }
@@ -135,16 +140,26 @@ namespace project_student1
                 confirm = Console.ReadLine().ToString();
             } while (confirm == "y" || confirm == "Y");
         }//end the desplay menu
-        public bool IsSucceed // to now if the student is Succeed or not 
+        public bool IsSucceed // to now if the student is Succeed or not
         {
             get
             {
-                int id = Convert.ToInt16(Console.ReadLine());
+                Console.Write("Enter student's ID:");
+                int id = Convert.ToInt16(Console.ReadLine());   
                 int i = search(st, id, itemcount);
-                if (st[i].total >= 50)
-                    return true;
+                if (i >= 0 || i != -1)
+                {
+                    if (st[i].total >= 50)
+                        return true;
+                    else
+                        return false;
+                }
                 else
+                {
+                    Console.WriteLine("The record doesn't exits.");
                     return false;
+                }
+                    
             }
         }
         public void add(ref int itemcount)
@@ -497,7 +512,7 @@ namespace project_student1
             } while (confirm == "y" || confirm == "Y");
         }
         //method add/append a new record
-        static int search(Teacher[] te, string id, int itemcount)
+        public int search(Teacher[] te, string id, int itemcount)
         {
             int found = -1;
             for (int i = 0; i < itemcount && found == -1; i++)
@@ -533,11 +548,11 @@ namespace project_student1
             te[itemcount] = new Teacher(teachId, teachname, teachAge, teachDept, teachingstage, teachsex);
             ++itemcount;
         }
-        static void delete(Teacher[] te, ref int itemcount)
+        public void delete(Teacher[] te, ref int itemcount)
         {
             string id;
             int index;
-            if (itemcount > 0)
+            if (itemcount >= 0)
             {
                 Console.Write("Enter Teacher's ID:");
                 id = Console.ReadLine();
@@ -565,7 +580,7 @@ namespace project_student1
             else Console.WriteLine("No record to delete");
         }
 
-        static void clean(Teacher[] te, int index)
+        public void clean(Teacher[] te, int index)
         {
             te[index].teachId = null;
             te[index].teachname = null;
@@ -618,7 +633,7 @@ namespace project_student1
             }
             else Console.WriteLine("The record deosn't exits.Check the ID and try again.");
         }
-        public static string ID(Teacher[] te, int itemcount)
+        public  string ID(Teacher[] te, int itemcount)
         {
 
             if (te[itemcount].teachId == null)
@@ -627,7 +642,7 @@ namespace project_student1
             }
             return te[itemcount].teachId;
         }
-        public static string showteachDept(Teacher[] te, int itemcount)
+        public  string showteachDept(Teacher[] te, int itemcount)
         {
 
             if (te[itemcount].teachDept == null)
@@ -637,17 +652,28 @@ namespace project_student1
             return te[itemcount].teachDept;
         }
 
-        public static string showteachingstage(Teacher[] te, int itemcount)
+        public  string showteachingstage(Teacher[] te, int itemcount)
         {
-
-            if (te[itemcount].teachingstage == null)
+            string id = Console.ReadLine();
+            int val = search(te, id, itemcount);
+            string m = Convert.ToString(val); 
+            for (int i = 0; i < itemcount; i++)
             {
-                Console.WriteLine("there is no teacher yet !!!");
+               
+                if(m==te[i].teachId)
+                {
+
+                }
+                //if (te[itemcount].teachingstage == null)
+                //{
+                //    Console.WriteLine("there is no teacher yet !!!");
+                //}
             }
+           
             return te[itemcount].teachingstage;
         }
 
-        public static int showteachAge(Teacher[] te, int itemcount)
+        public  int showteachAge(Teacher[] te, int itemcount)
         {
 
             if (te[itemcount].teachAge == -1)
@@ -656,7 +682,7 @@ namespace project_student1
             }
             return te[itemcount].teachAge;
         }
-        public static string showteachsex(Teacher[] te, int itemcount)
+        public  string showteachsex(Teacher[] te, int itemcount)
         {
 
             if (te[itemcount].teachsex == null)
@@ -734,17 +760,16 @@ year + "\n" +
     {
         static void Main(string[] args)
         {
-           
+
             //SchoolInformation school = new SchoolInformation();
             //SchoolInformation.PrintSchoolInformation();
             student s1 = new student();
             Initial I1 = new Initial();
-        
             I1.displaymenu();
-            Console.WriteLine(I1.IsSucceed);
-            //InitialTeacher I1T = new InitialTeacher();
-            //I1T.displaymenu();
-            
+            //Console.WriteLine(I1.IsSucceed);
+            //InitialTeacher T = new InitialTeacher();
+            //T.displaymenu();
+
             Console.ReadKey();
         }
     }
