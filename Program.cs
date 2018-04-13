@@ -9,6 +9,10 @@ namespace project_student1
     public abstract class Person 
     {
         public abstract bool Age( ref int a);
+        public abstract bool this[float index,string Str] { get; }
+        
+        //add indexer here 
+
     }
     class student
     {
@@ -75,6 +79,24 @@ namespace project_student1
             return true;
           
         }
+            public override bool this[float index, string Str]
+        {
+            get
+            {
+                if ((index >= 0 && index <= 5)&&Str=="quizz1"||Str=="quizz2")
+                { return true; }
+               else if((index >= 0 && index <= 10) && Str == "assigment")
+                { return true; }
+                else if((index >= 0 && index <= 20) && Str == "midterm")
+                { return true; }
+                else if ((index >= 0 && index <= 60) && Str == "final")
+                { return true; }
+                else
+                {Console.Write("You have enter a wrong num!ReEnter the quizz:");return false;}
+            }
+        }
+
+               
         public void displaymenu()
         {
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
@@ -174,25 +196,42 @@ namespace project_student1
             }       
             Console.Write("Enter student's Name:");
             string stname = Console.ReadLine().ToString();
-
+            Initial n1=new Initial();
             Console.Write("Enter student's Sex(F or M):");
             string sex = Console.ReadLine().ToString();
             //Console.Write("Enter subject:");
             //string subject = Console.ReadLine();
-            Console.Write("Enter student's quizz1 score:");
-            float quizz1 = float.Parse(Console.ReadLine());
+           Console.Write("Enter student's quizz1 score from 5:");
+           Ask1:    float quizz1 = float.Parse(Console.ReadLine());
+            if(!n1[quizz1,"quizz1"])
+            {
+                goto Ask1;
+            }
+            Console.Write("Enter student's quizz2 score from 5:");
+           Ask2: float quizz2 = float.Parse(Console.ReadLine());
+            if(!n1[quizz2, "quizz2"])
+            {
+                 goto Ask2;
+            }
+            Console.Write("Enter student's assigment score from 10:");
+           Ask3: float assigment = float.Parse(Console.ReadLine());
+            if (!n1[assigment, "assigment"])
+            {
+                goto Ask3;
+            }
 
-            Console.Write("Enter student's quizz2 score:");
-            float quizz2 = float.Parse(Console.ReadLine());
-
-            Console.Write("Enter student's assigment score:");
-            float assigment = float.Parse(Console.ReadLine());
-
-            Console.Write("Enter student's mid term score:");
-            float midterm = float.Parse(Console.ReadLine());
-            Console.Write("Enter student's final score:");
-            float final = float.Parse(Console.ReadLine());
-
+            Console.Write("Enter student's mid term score from 20:");
+           Ask4: float midterm = float.Parse(Console.ReadLine());
+            if (!n1[midterm, "midterm"])
+            {
+                goto Ask4;
+            }
+            Console.Write("Enter student's final score from 60:");
+         Ask5:   float final = float.Parse(Console.ReadLine());
+            if (!n1[final, "final"])
+            {
+                goto Ask5;
+            }
             float total = quizz1 + quizz2 + assigment + midterm + final;
             st[itemcount] = new student(stnumber, stage, stname, sex, quizz1, quizz2, assigment, midterm, final, total);
             itemcount++;         
