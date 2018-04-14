@@ -210,14 +210,24 @@ namespace project_student1
             if (!Age(ref stage))
             {
                 goto Ask;
-            }       
+            }
+            Do:     
             Console.Write("Enter student's Name:");
             string stname = Console.ReadLine().ToString();
-            Console.Write("Enter student's Sex(F or M):");
-            string sex = Console.ReadLine().ToString();
-            //Console.Write("Enter subject:");
-            //string subject = Console.ReadLine();
-           Console.Write("Enter student's quizz1 score from 5:");
+            bool result = stname.All(x => char.IsLetter(x) || x == ' ' || x == '.');
+            if (result != true)
+            {
+                Console.Write("You have entered a wrong Name !! , Re");
+                goto Do;
+            }
+            Agan: Console.Write("Enter student's Sex(F or M):");
+            string sex = Console.ReadLine().ToUpper();
+            if (!(sex == "M" || sex == "F"))
+            {
+                Console.Write("You have entered wrong !! Re");
+                goto Agan;
+            }
+            Console.Write("Enter student's quizz1 score from 5:");
            Ask1:    float quizz1 = float.Parse(Console.ReadLine());
             if(!n1[quizz1,"quizz1"])
             {
@@ -616,8 +626,15 @@ namespace project_student1
                 Console.WriteLine("This ID already exists.");
                 goto Again;
             }
+            Doagain:
             Console.Write("Enter Teacher's Name:");
             string teachname = Console.ReadLine();
+            bool resulte = teachname.All(x => char.IsLetter(x) || x == ' '|| x == '.');
+            if (resulte != true)
+            {
+                Console.Write("\nYou have entered a wrong Name !! , Re");
+                goto Doagain;
+            }
             Agan: Console.Write("Enter Teacher's Sex(F or M):");
             string teachsex = Console.ReadLine();
             if (!(teachsex == "f" || teachsex == "F") && !(teachsex == "m" || teachsex == "M"))
@@ -796,8 +813,15 @@ namespace project_student1
         public static int year = 0;
         public SchoolInformation()
         {
+            Doagan:
             Console.Write("Enter the school name : ");
             school = Console.ReadLine();
+            bool resul = school.All(x => char.IsLetter(x) || x == ' ' || x == '.');
+            if (resul != true)
+            {
+                Console.Write("\nYou have entered a Wrong Name !! , Re");
+                goto Doagan;
+            }
             Console.Write("Enter the school motto : ");
             motto = Console.ReadLine();
             Console.Write("Enter the school Uniforms Colors : ");
