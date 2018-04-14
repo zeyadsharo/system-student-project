@@ -81,20 +81,34 @@ namespace project_student1
         {
             get
             {
-                if ((index >= 0 && index <= 5)&&Str=="quizz1"||Str=="quizz2")
+                if ((index >= 0 && index <= 5) && Str == "quizz1" || Str == "quizz2")
                 { return true; }
-               else if((index >= 0 && index <= 10) && Str == "assigment")
+                else if ((index >= 0 && index <= 10) && Str == "assigment")
                 { return true; }
-                else if((index >= 0 && index <= 20) && Str == "midterm")
+                else if ((index >= 0 && index <= 20) && Str == "midterm")
                 { return true; }
                 else if ((index >= 0 && index <= 60) && Str == "final")
                 { return true; }
                 else
-                {Console.Write("You have enter a wrong num!ReEnter the score:");return false;}
+                { Console.Write("You have enter a wrong num!ReEnter the score:"); return false; }
             }
+        }   
+        public  bool ID(string STR)
+        {
+            bool flag = true;
+            for (int i = 0; i < STR.Length; i++)
+            {
+                if (!(STR[i]>='0'&&STR[i]<='9'))
+                {
+                    Console.Write("You have enter a wrong ID must be a integer number!!\nReEnter student's ID:");
+                    flag = false;
+                    break;
+                }
+                else
+                { flag = true;}
+            }
+            return flag;         
         }
-
-               
         public void displaymenu()
         {
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
@@ -116,7 +130,6 @@ namespace project_student1
             do
             {
                 Console.Write("Enter your choice(1-10):");
-
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
                 {
@@ -183,9 +196,15 @@ namespace project_student1
             }
         }
         public void add(ref int itemcount)
-        {  
+        {
+            Initial n1 = new Initial();
             Console.Write("Enter student's ID:");
-            int stnumber = int.Parse(Console.ReadLine());
+            agian: string id =Console.ReadLine();
+            if (!ID(id))
+            {
+                goto agian;
+            }
+            int stnumber = int.Parse(id);
             Console.Write("Enter student's Age:");
             Ask:  int stage = int.Parse(Console.ReadLine());
             if (!Age(ref stage))
@@ -194,7 +213,6 @@ namespace project_student1
             }       
             Console.Write("Enter student's Name:");
             string stname = Console.ReadLine().ToString();
-            Initial n1=new Initial();
             Console.Write("Enter student's Sex(F or M):");
             string sex = Console.ReadLine().ToString();
             //Console.Write("Enter subject:");
@@ -567,13 +585,32 @@ namespace project_student1
                 goto ag;
             }
         }
-
+        public bool ID(string STR)
+        {
+            bool flag = true;
+            for (int i = 0; i < STR.Length; i++)
+            {
+                if (!(STR[i] >= '0' && STR[i] <= '9'))
+                {
+                    Console.Write("You have enter a wrong ID must be a integer number!!\nReEnter student's ID:");
+                    flag = false;
+                    break;
+                }
+                else
+                { flag = true; }
+            }
+            return flag;
+        }
         public void add(ref int itemcount)
         {
             Again:
             Console.WriteLine();
-            Console.Write("Enter Teacher's ID:");
-            string teachId = Console.ReadLine().ToString();
+            Console.Write("Enter Teacher's ID:");             
+           AGIN: string teachId = Console.ReadLine().ToString();
+            if(!ID(teachId))
+            {
+                goto AGIN;
+            }
             if (search(te, teachId, itemcount) != -1)
             {
                 Console.WriteLine("This ID already exists.");
@@ -803,6 +840,7 @@ year + "\n" +
             student s1 = new student();
             Initial I1 = new Initial();
             I1.displaymenu();
+            Teacher TE = new Teacher();
             InitialTeacher T = new InitialTeacher();
             T.displaymenu();
             Console.ReadKey();
