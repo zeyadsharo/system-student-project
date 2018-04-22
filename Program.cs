@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -173,6 +174,18 @@ namespace project_student1
                 confirm = Console.ReadLine().ToString();
             } while (confirm == "y" || confirm == "Y");
         }//end the desplay menu
+        public static void Readfile(string path)
+        {
+            StreamReader readfile = new StreamReader(path);
+            string filedata = readfile.ReadToEnd();
+            Console.WriteLine(filedata);
+        }
+        public static void WriteFile(string path, string data)
+        {
+            StreamWriter writedata = new StreamWriter(path, true);
+            writedata.WriteAsync(data);
+            writedata.Close();
+        }
         public bool IsSucceed // to now if the student is Succeed or not
         {
             get
@@ -199,11 +212,14 @@ namespace project_student1
         {
             Initial n1 = new Initial();
             Console.Write("Enter student's ID:");
+            
             agian: string id =Console.ReadLine();
+            
             if (!ID(id))
             {
                 goto agian;
             }
+            WriteFile(@"D:\project\test.txt","ID:"+id+"\n");
             int stnumber = int.Parse(id);
             Console.Write("Enter student's Age:");
             Ask:  int stage = int.Parse(Console.ReadLine());
@@ -220,6 +236,7 @@ namespace project_student1
                 Console.Write("You have entered a wrong Name !! , Re");
                 goto Do;
             }
+            WriteFile(@"D:\project\test.txt","Name:"+stname+"\n");
             Agan: Console.Write("Enter student's Sex(F or M):");
             string sex = Console.ReadLine().ToUpper();
             if (!(sex == "M" || sex == "F"))
@@ -860,7 +877,7 @@ year + "\n" +
         static void Main(string[] args)
         {
 
-            SchoolInformation school = new SchoolInformation();
+            //SchoolInformation school = new SchoolInformation();
             student s1 = new student();
             Initial I1 = new Initial();
             I1.displaymenu();
