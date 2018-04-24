@@ -94,11 +94,13 @@ namespace project_student1
                 { Console.Write("You have enter a wrong num!ReEnter the score:"); return false; }
             }
         }   
-        public  bool ID(string STR)
+        
+        public  bool ID(string STR,int id=-1)
         {
             bool flag = true;
             for (int i = 0; i < STR.Length; i++)
             {
+              
                 if (!(STR[i]>='0'&&STR[i]<='9'))
                 {
                     Console.Write("You have enter a wrong ID must be a integer number!!\nReEnter student's ID:");
@@ -108,6 +110,20 @@ namespace project_student1
                 else
                 { flag = true;}
             }
+            if (itemcount>0)
+                {
+                for (int i = 0; i < itemcount; i++)
+                {
+                    if(st[i].stnumber==id)
+                    {
+                        Console.Write("the ID already Exists!!\nReEnter student's ID:");
+                        flag = false;
+                        break;
+                    }
+                    else
+                    { flag = true; }
+                }
+                }
             return flag;         
         }
         public void displaymenu()
@@ -219,7 +235,7 @@ namespace project_student1
             
             agian: string id =Console.ReadLine();
             
-            if (!ID(id))
+            if (!ID(id, int.Parse(id)))
             {
                 goto agian;
             }          
@@ -889,12 +905,10 @@ year + "\n" +
             SchoolInformation school = new SchoolInformation();
             student s1 = new student();
             Initial I1 = new Initial();
-            I1.displaymenu();
-            
+            I1.displaymenu();           
             Teacher TE = new Teacher();
             InitialTeacher T = new InitialTeacher();
             T.displaymenu();
-            Initial.Readfile(@"D:\project\test.doc");
             Console.ReadKey();
         }
     }
