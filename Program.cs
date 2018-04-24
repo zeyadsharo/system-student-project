@@ -178,7 +178,10 @@ namespace project_student1
         {
             StreamReader readfile = new StreamReader(path);
             string filedata = readfile.ReadToEnd();
-            Console.WriteLine(filedata);
+            if(File.Exists(path))
+            {
+                Console.WriteLine(filedata);
+            }
         }
         public static void WriteFile(string path, string data)
         {
@@ -218,8 +221,7 @@ namespace project_student1
             if (!ID(id))
             {
                 goto agian;
-            }
-            WriteFile(@"D:\project\test.txt","ID:"+id+"\n");
+            }          
             int stnumber = int.Parse(id);
             Console.Write("Enter student's Age:");
             Ask:  int stage = int.Parse(Console.ReadLine());
@@ -236,7 +238,6 @@ namespace project_student1
                 Console.Write("You have entered a wrong Name !! , Re");
                 goto Do;
             }
-            WriteFile(@"D:\project\test.txt","Name:"+stname+"\n");
             Agan: Console.Write("Enter student's Sex(F or M):");
             string sex = Console.ReadLine().ToUpper();
             if (!(sex == "M" || sex == "F"))
@@ -276,6 +277,8 @@ namespace project_student1
                 goto Ask5;
             }
             float total = quizz1 + quizz2 + assigment + midterm + final;
+            WriteFile(@"D:\project\test.doc","\nStudent Number:("+(itemcount+1)+")\nID: "+id+"\nName: " +stname +"\nsex: "+sex+"\nAge: "+ stage+"\nQuizz1: "+quizz1+"\nQuizz2: "+quizz2+ "\nassigment: "+assigment+ "\nmidterm: "+ midterm+ "\nfinal: "+ final+ "\ntotal: "+total+"\n" );
+            WriteFile(@"D:\project\test.doc", "\n----------------Students-----------------\n");
             st[itemcount] = new student(stnumber, stage, stname, sex, quizz1, quizz2, assigment, midterm, final, total);
             itemcount++;         
         }//end the added information 
@@ -666,6 +669,8 @@ namespace project_student1
             string teachDept = Console.ReadLine();
             Console.Write("Enter Teacher's teaching stage:");
             string teachingstage = Console.ReadLine();
+            Initial.WriteFile(@"D:\project\test.doc", "\nTeacher's ID:" + teachId + "\nTeacher's Name: " + teachname + "\nTeacher's Sex: " + teachsex + "\nTeacher's Age: " + teachsex + "\nTeacher's dept: " + teachDept + "\n teaching stage: " + teachingstage);
+            Initial.WriteFile(@"D:\project\test.doc", "\n----------------Teachers-----------------\n");
             te[itemcount] = new Teacher(teachId, teachname, teachAge, teachDept, teachingstage, teachsex);
             ++itemcount;
         }
@@ -847,7 +852,9 @@ namespace project_student1
             master = Console.ReadLine();
             Console.Write("Enter The school first year was established : ");
             year = int.Parse(Console.ReadLine());
-            SchoolInformation.PrintSchoolInformation();
+           Initial. WriteFile(@"D:\project\test.doc","\nSchool Name: " + school + "\nSchool Motto: " + motto + "\nUniforms Colors: " + colors + "\nschool master: " + master + "\nThe school first year was established: " + year+"\n");
+            Initial.WriteFile(@"D:\project\test.doc", "\n----------------Welcome----------------\n");
+           SchoolInformation.PrintSchoolInformation();
         }      
         public SchoolInformation(string school, string motto, string colors, string master, int year)
         {
@@ -877,13 +884,15 @@ year + "\n" +
         static void Main(string[] args)
         {
 
-            //SchoolInformation school = new SchoolInformation();
+            SchoolInformation school = new SchoolInformation();
             student s1 = new student();
             Initial I1 = new Initial();
             I1.displaymenu();
+            
             Teacher TE = new Teacher();
             InitialTeacher T = new InitialTeacher();
             T.displaymenu();
+            Initial.Readfile(@"D:\project\test.doc");
             Console.ReadKey();
         }
     }
