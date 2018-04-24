@@ -112,6 +112,7 @@ namespace project_student1
         }
         public void displaymenu()
         {
+            WriteFile(@"D:\project\test.doc", "\n----------------Students-----------------\n");
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
             Console.WriteLine(" 1.Add student records");
             Console.WriteLine(" 2.Delete student records");
@@ -276,9 +277,8 @@ namespace project_student1
             {
                 goto Ask5;
             }
-            float total = quizz1 + quizz2 + assigment + midterm + final;
-            WriteFile(@"D:\project\test.doc","\nStudent Number:("+(itemcount+1)+")\nID: "+id+"\nName: " +stname +"\nsex: "+sex+"\nAge: "+ stage+"\nQuizz1: "+quizz1+"\nQuizz2: "+quizz2+ "\nassigment: "+assigment+ "\nmidterm: "+ midterm+ "\nfinal: "+ final+ "\ntotal: "+total+"\n" );
-            WriteFile(@"D:\project\test.doc", "\n----------------Students-----------------\n");
+            float total = quizz1 + quizz2 + assigment + midterm + final;           
+            WriteFile(@"D:\project\test.doc","\nStudent Number:("+(itemcount+1)+")\nID: "+id+"\nName: " +stname +"\nsex: "+sex+"\nAge: "+ stage+"\nQuizz1: "+quizz1+"\nQuizz2: "+quizz2+ "\nassigment: "+assigment+ "\nmidterm: "+ midterm+ "\nfinal: "+ final+ "\ntotal: "+total+"\n" );          
             st[itemcount] = new student(stnumber, stage, stname, sex, quizz1, quizz2, assigment, midterm, final, total);
             itemcount++;         
         }//end the added information 
@@ -535,6 +535,7 @@ namespace project_student1
         public int itemcount = 0;
         public void displaymenu()
         {
+            Initial.WriteFile(@"D:\project\test.doc", "\n----------------Teachers-----------------\n");
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
             Console.WriteLine(" 1.Add Teacher records");
             Console.WriteLine(" 2.Delete Teacher records");
@@ -669,8 +670,8 @@ namespace project_student1
             string teachDept = Console.ReadLine();
             Console.Write("Enter Teacher's teaching stage:");
             string teachingstage = Console.ReadLine();
-            Initial.WriteFile(@"D:\project\test.doc", "\nTeacher's ID:" + teachId + "\nTeacher's Name: " + teachname + "\nTeacher's Sex: " + teachsex + "\nTeacher's Age: " + teachsex + "\nTeacher's dept: " + teachDept + "\n teaching stage: " + teachingstage);
-            Initial.WriteFile(@"D:\project\test.doc", "\n----------------Teachers-----------------\n");
+            Initial.WriteFile(@"D:\project\test.doc","Teacher Number:("+(itemcount+1)+")\nTeacher's ID:" + teachId + "\nTeacher's Name: " + teachname + "\nTeacher's Sex: " + teachsex + "\nTeacher's Age: " + teachsex + "\nTeacher's dept: " + teachDept + "\nteaching stage: " + teachingstage);
+           
             te[itemcount] = new Teacher(teachId, teachname, teachAge, teachDept, teachingstage, teachsex);
             ++itemcount;
         }
@@ -835,6 +836,7 @@ namespace project_student1
         public static int year = 0;
         public SchoolInformation()
         {
+            Initial.WriteFile(@"D:\project\test.doc", "\n----------------Welcome------------------\n");
             Doagan:
             Console.Write("Enter the school name : ");
             school = Console.ReadLine();
@@ -853,7 +855,7 @@ namespace project_student1
             Console.Write("Enter The school first year was established : ");
             year = int.Parse(Console.ReadLine());
            Initial. WriteFile(@"D:\project\test.doc","\nSchool Name: " + school + "\nSchool Motto: " + motto + "\nUniforms Colors: " + colors + "\nschool master: " + master + "\nThe school first year was established: " + year+"\n");
-            Initial.WriteFile(@"D:\project\test.doc", "\n----------------Welcome----------------\n");
+            
            SchoolInformation.PrintSchoolInformation();
         }      
         public SchoolInformation(string school, string motto, string colors, string master, int year)
